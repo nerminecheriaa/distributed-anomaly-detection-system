@@ -1,135 +1,128 @@
-# Système distribué de détection d’anomalies basé sur une architecture multi-agents
+# Distributed Anomaly Detection System Based on a Multi-Agent Architecture
 
-## 1. Présentation générale
+## 1. General Overview
 
-Ce projet a pour objectif la conception et l’implémentation d’un **système distribué de détection
-d’anomalies** basé sur une **architecture multi-agents**. Il s’inscrit dans le cadre d’un travail
-pratique universitaire portant sur les systèmes distribués et la programmation orientée agents.
+This project aims to design and implement a **distributed anomaly detection system** based on a **multi-agent architecture**. It is part of a university practical work focused on distributed systems and agent-oriented programming.
 
-Chaque nœud du système est surveillé localement par un agent autonome capable de détecter
-des surcharges CPU et bande passante. Les anomalies sont transmises à un serveur central
-chargé de les corréler, d’enregistrer les événements, de déclencher un audit via un agent mobile
-et d’appliquer une action corrective. Un module Python permet la visualisation temps réel
-des métriques.
+Each node of the system is locally monitored by an autonomous agent capable of detecting CPU and bandwidth overloads. Anomalies are transmitted to a central server responsible for correlating them, logging events, triggering an audit via a mobile agent, and applying a corrective action. A Python module enables real-time visualization of the metrics.
 
 ---
 
-## 2. Objectifs du projet
+## 2. Project Objectives
 
-- Surveiller la consommation CPU et bande passante de plusieurs nœuds
-- Détecter localement les dépassements de seuils
-- Centraliser et corréler les alertes
-- Déployer dynamiquement un agent mobile d’audit
-- Appliquer une action corrective automatique
-- Visualiser l’évolution des métriques en temps réel
-
----
-
-## 3. Démarche et étapes de réalisation
-
-### Étape 1 : Analyse de l’énoncé et définition des besoins
-
-Analyse de l’énoncé afin d’identifier les exigences fonctionnelles et techniques :
-- surveillance distribuée des ressources
-- détection d’anomalies locales
-- coordination centralisée
-- audit mobile
-- réaction automatique
-- visualisation graphique
-
-Cette analyse a conduit au choix d’une architecture multi-agents basée sur JADE, complétée
-par un module Python de monitoring.
+- Monitor CPU and bandwidth consumption of multiple nodes
+- Detect threshold exceedances locally
+- Centralize and correlate alerts
+- Dynamically deploy a mobile audit agent
+- Apply an automatic corrective action
+- Visualize metric evolution in real time
 
 ---
 
-### Étape 2 : Mise en place de l’environnement
+## 3. Approach and Implementation Steps
 
-- Installation de JADE (Java Agent DEvelopment Framework)
-- Configuration de l’environnement Java
-- Installation de Python 3 et des bibliothèques nécessaires
-- Mise en place d’une base de données SQLite
+### Step 1: Requirements Analysis
 
----
+Analysis of the specifications to identify functional and technical requirements:
+- Distributed resource monitoring
+- Local anomaly detection
+- Centralized coordination
+- Mobile audit
+- Automatic reaction
+- Graphical visualization
 
-### Étape 3 : Développement des agents locaux
-
-Chaque nœud est associé à un **LocalAgent** chargé de :
-- générer périodiquement des métriques CPU et bande passante
-- comparer les valeurs aux seuils définis
-- détecter les anomalies
-- envoyer des messages ALERT au serveur central
-- enregistrer les mesures dans un fichier de log
-- appliquer une action corrective si nécessaire
-
-Cette étape correspond à la phase de **surveillance distribuée autonome**.
+This analysis led to the choice of a multi-agent architecture based on JADE, complemented by a Python monitoring module.
 
 ---
 
-### Étape 4 : Mise en œuvre du serveur central
+### Step 2: Environment Setup
 
-Le **CentralServerAgent** assure la coordination globale du système :
-- réception des alertes envoyées par les agents locaux
-- enregistrement des anomalies dans SQLite
-- corrélation et comptage des alertes par nœud
-- déclenchement d’un agent mobile après plusieurs anomalies
-- envoi d’une action corrective au nœud concerné
-
-Cette étape introduit la notion d’**intelligence centralisée**.
+- Installation of JADE (Java Agent DEvelopment Framework)
+- Configuration of the Java environment
+- Installation of Python 3 and required libraries
+- Setup of a SQLite database
 
 ---
 
-### Étape 5 : Déploiement de l’agent mobile d’audit
+### Step 3: Development of Local Agents
 
-Lorsqu’une situation critique est détectée :
-- création dynamique d’un **MobileAuditAgent**
-- migration vers le conteneur du nœud fautif
-- collecte d’informations locales supplémentaires
-- envoi d’un rapport d’audit au serveur central
+Each node is associated with a **LocalAgent** responsible for:
+- Periodically generating CPU and bandwidth metrics
+- Comparing values against defined thresholds
+- Detecting anomalies
+- Sending ALERT messages to the central server
+- Logging measurements to a log file
+- Applying a corrective action if necessary
 
-Cette phase permet une analyse approfondie directement sur le nœud concerné.
-
----
-
-### Étape 6 : Monitoring et visualisation Python
-
-Un module Python permet :
-- la lecture continue du fichier de log partagé
-- l’affichage temps réel des courbes CPU et bande passante
-- la visualisation des seuils critiques
-- la mise en évidence des anomalies détectées
+This step corresponds to the **autonomous distributed monitoring** phase.
 
 ---
 
-### Étape 7 : Tests, validation et analyse des résultats
+### Step 4: Implementation of the Central Server
 
-Tests réalisés sur différents scénarios de surcharge simulée :
-- validation de la détection locale
-- vérification de la corrélation des alertes
-- observation du déploiement de l’agent mobile
-- analyse de l’impact des actions correctives
-- cohérence entre agents JADE et graphiques Python
+The **CentralServerAgent** ensures global system coordination:
+- Receiving alerts sent by local agents
+- Recording anomalies in SQLite
+- Correlating and counting alerts per node
+- Triggering a mobile agent after multiple anomalies
+- Sending a corrective action to the affected node
 
-Ces tests ont confirmé le bon fonctionnement global du système.
-
----
-
-## 4. Architecture du système
-
-### 4.1 Agents JADE
-
-- **LocalAgent** : surveillance locale et détection d’anomalies
-- **CentralServerAgent** : coordination, corrélation et décision
-- **MobileAuditAgent** : audit mobile ciblé
-
-### 4.2 Module de visualisation
-
-- Script Python basé sur matplotlib
-- Lecture du fichier `agent_metrics.log`
-- Affichage temps réel des métriques
+This step introduces the concept of **centralized intelligence**.
 
 ---
 
-## 5. Technologies utilisées
+### Step 5: Deployment of the Mobile Audit Agent
+
+When a critical situation is detected:
+- Dynamic creation of a **MobileAuditAgent**
+- Migration to the faulty node's container
+- Collection of additional local information
+- Sending an audit report back to the central server
+
+This phase enables in-depth analysis directly on the affected node.
+
+---
+
+### Step 6: Python Monitoring and Visualization
+
+A Python module allows:
+- Continuous reading of the shared log file
+- Real-time display of CPU and bandwidth curves
+- Visualization of critical thresholds
+- Highlighting of detected anomalies
+
+---
+
+### Step 7: Testing, Validation, and Results Analysis
+
+Tests conducted on various simulated overload scenarios:
+- Validation of local detection
+- Verification of alert correlation
+- Observation of mobile agent deployment
+- Analysis of corrective action impact
+- Consistency between JADE agents and Python graphs
+
+These tests confirmed the overall correct functioning of the system.
+
+---
+
+## 4. System Architecture
+
+### 4.1 JADE Agents
+
+- **LocalAgent**: Local monitoring and anomaly detection
+- **CentralServerAgent**: Coordination, correlation, and decision-making
+- **MobileAuditAgent**: Targeted mobile audit
+
+### 4.2 Visualization Module
+
+- Python script based on matplotlib
+- Reads the `agent_metrics.log` file
+- Real-time display of metrics
+
+---
+
+## 5. Technologies Used
 
 - Java (JDK 8+)
 - JADE 4.6
@@ -140,100 +133,74 @@ Ces tests ont confirmé le bon fonctionnement global du système.
 
 ---
 
-## 6. Structure du projet
-
-```
-
+## 6. Project Structure
 project-root/
 │
 ├── jade-agents/
-│   ├── src/agents/
-│   │   ├── LocalAgent.java
-│   │   ├── CentralServerAgent.java
-│   │   └── MobileAuditAgent.java
-│   ├── src/utils/
-│   ├── lib/
-│   └── classes/
+│ ├── src/agents/
+│ │ ├── LocalAgent.java
+│ │ ├── CentralServerAgent.java
+│ │ └── MobileAuditAgent.java
+│ ├── src/utils/
+│ ├── lib/
+│ └── classes/
 │
 ├── monitoring/
-│   ├── agent_metrics.log
-│   └── matplotlib_monitor.py
+│ ├── agent_metrics.log
+│ └── matplotlib_monitor.py
 │
 ├── database/
-│   └── alerts.db
+│ └── alerts.db
 │
 ├── docker/
-│   ├── Dockerfile.jade
-│   ├── Dockerfile.python
-│   └── docker-compose.yml
+│ ├── Dockerfile.jade
+│ ├── Dockerfile.python
+│ └── docker-compose.yml
 │
 └── README.md
 
-````
+text
 
 ---
 
-## 7. Installation (exécution locale)
+## 7. Installation (Local Execution)
 
-### 7.1 Prérequis
+### 7.1 Prerequisites
 
-- Java JDK installé
-- Python 3 installé
-- Terminal Linux ou Windows
+- Java JDK installed
+- Python 3 installed
+- Linux or Windows terminal
 
-### 7.2 Installation des dépendances Python
+### 7.2 Installing Python Dependencies
 
 ```bash
 sudo apt install python3 python3-pip
 pip install matplotlib psutil
-````
-
----
-
-## 8. Compilation et exécution (sans Docker)
-
-### 8.1 Compilation Java
-
-```bash
+8. Compilation and Execution (Without Docker)
+8.1 Java Compilation
+bash
 javac -cp "lib/*" -d classes src/agents/*.java src/utils/*.java
-```
-
-### 8.2 Lancement de la plateforme JADE
-
-```bash
+8.2 Launching the JADE Platform
+bash
 java -cp "lib/*:classes" jade.Boot -gui
-```
-
-### 8.3 Lancement du monitoring Python
-
-```bash
+8.3 Launching Python Monitoring
+bash
 python3 monitoring/matplotlib_monitor.py
-```
+9. Running the Project with Docker
+Using Docker allows the project to run in an isolated and reproducible environment, independent of the host system's configuration.
 
----
+9.1 Prerequisites
+Docker installed
 
-## 9. Exécution du projet avec Docker
+Docker Compose installed
 
-L’utilisation de Docker permet d’exécuter le projet dans un environnement isolé et reproductible,
-sans dépendre de la configuration du système hôte.
+Verification:
 
-### 9.1 Prérequis
-
-* Docker installé
-* Docker Compose installé
-
-Vérification :
-
-```bash
+bash
 docker --version
 docker-compose --version
-```
-
----
-
-### 9.2 Dockerfile – Agents JADE
-
-```dockerfile
+9.2 Dockerfile – JADE Agents
+dockerfile
 FROM openjdk:11-jdk-slim
 
 WORKDIR /app
@@ -245,13 +212,8 @@ WORKDIR /app/jade-agents
 RUN javac -cp "lib/*" -d classes src/agents/*.java src/utils/*.java
 
 CMD ["java", "-cp", "lib/*:classes", "jade.Boot", "-gui"]
-```
-
----
-
-### 9.3 Dockerfile – Monitoring Python
-
-```dockerfile
+9.3 Dockerfile – Python Monitoring
+dockerfile
 FROM python:3.10-slim
 
 WORKDIR /app
@@ -261,29 +223,13 @@ COPY monitoring /app/monitoring
 RUN pip install matplotlib psutil
 
 CMD ["python", "monitoring/matplotlib_monitor.py"]
-```
-
----
-
-### 9.4 Lancement du système avec Docker
-
-```bash
+9.4 Launching the System with Docker
+bash
 docker-compose up --build
-```
+Stopping the system:
 
-Arrêt du système :
-
-```bash
+bash
 docker-compose down
-```
-
----
-
-## 10. Cadre académique
-
-Projet réalisé dans le cadre d’un **Travail Pratique universitaire**
-Domaines : systèmes distribués, réseaux, systèmes multi-agents
-
-```
-
----
+10. Academic Context
+Project carried out as part of a university practical work
+Domains: distributed systems, networks, multi-agent systems
